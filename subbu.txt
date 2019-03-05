@@ -1,4 +1,4 @@
 class public()
 {
-
+ public static void main();
 }
