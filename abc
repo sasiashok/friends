@@ -1,4 +1,4 @@
 class abc()
 {
- echo"hello";
+ public static void main();
 }
