@@ -14,7 +14,7 @@
        <echo> Java package task </echo>
        <jar basedir="build/classes" destfile="build/jar/Multiplication.jar"> <!-- package -->
           <manifest>
-             <attribute name="Main-Class" value=""/>
+             <attribute name="Main-Class" value="Multiplication"/>
           </manifest>
        </jar>
    </target>
