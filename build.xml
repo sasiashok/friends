@@ -1,4 +1,4 @@
-<project name="test" default="run">    
+<project name="test" default="package">    
 	
 	<target name="clean">
        <delete dir="build" /> <!-- clean -->
