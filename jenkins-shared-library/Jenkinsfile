@@ -1,6 +1,6 @@
 @Library('bitwiseman-shared@blog/declarative/notifications') _ 
 timestamps {
-  node ('any') {
+  agent any {
     try {
       deleteDir()
       properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '15'))])
