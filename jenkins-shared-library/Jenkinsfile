@@ -1,3 +1,4 @@
+@Library('bitwiseman-shared@blog/declarative/notifications') _ 
 timestamps {
   node ('ads-agent') {
     try {
