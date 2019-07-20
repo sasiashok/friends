@@ -1,0 +1,163 @@
+Refer to <a href="https://confluence.ads.kp.org/confluence/display/ADSDevOps/Shared+Libraries#SharedLibraries-Parameters">Shared Libraries</a> for usage.
+
+Sample usage in Jenkinsfile:
+
+@Library ('kp-library') _
+
+buildDeploy(
+        label: "windows",
+    buildDependencies: [
+        [url: "http://git.ads.kp.org/bitbucket/scm/evv/evisits-shared-library.git",
+         branch :"demo_branch",
+         buildParams: [
+         	goalsTasks: "clean install -U"
+		 ]],
+        [url: "http://git.ads.kp.org/bitbucket/scm/evv/evisits-persistence-library.git",
+         sameBranch: true,
+         ]
+    ],
+    emailRecipients: "example@kp.org",
+    buildParams: [
+		goalsTasks: "clean install -U",
+		properties: [
+            ["key1", "value1"],
+            ["key2", "value2"],
+            ["key3only"]
+        ]
+	],
+	disableUnit: false,
+    unitArchiveOnly: true,
+	disableCodeAnalysis: false,
+    nexusIQ: [
+        appId: "questionaire",
+        credentials: "questionaire"
+    ]
+    sonarExclusions: "src/main/java/org/kp/evisit/app/security/*,src/main/java/org/kp/evisit/app/security/jwt/*,src/main/java/org/kp/evisit/app/ApplicationWebXml.java,src/main/java/org/kp/evisit/app/aop/logging/*,**/*Constants.java",
+    deploy: [
+        [
+            environment: "DIT",
+            platform: "bluemix",
+            apiUrl: "https://api.kpsj001.us-west.bluemix.net",
+            org: "CDTS-ADS-SJ001",
+            path: "target/*.war",
+            space: "devops-SL-evisit-dit",
+            credentials: "G705230_Bluemix",
+            hostName: "",
+            domain: "",
+            appName: "",
+            configRefresh: [
+                url: "",
+                body: "",
+                credentials: "",
+                secureHeaders: [
+                    "secure_credential1", "secure_credential2"
+                ],
+                headers: [
+                    ["key1", "value1"],
+                    ["key2", "value2"]
+                ],
+            ],
+            autoScalerPolicy: "path to json",
+
+            envs: [
+                ["key1", "value1"],
+                ["key2", "value2"]
+            ],
+            services: [
+                [
+                    name: "name1",
+                    params: [
+                        key1: "value1",
+                        key2: "value2"
+                    ],
+                    secureParams: [
+                        "key1", "key2"
+                    ]
+                    custom: true
+                ],
+                [
+                    name: "name1",
+                    params: [
+                        key1: "value1",
+                        key2: "value2"
+                    ],
+                    secureParams: [
+                        "key1", "key2"
+                    ]
+                    create: [
+                        service_name: "",
+                        service_plan: ""
+                    ]
+                ],
+                [
+                    name: "name1",
+                    syslog: "ip:port"
+                ],
+                [
+                    name: "name2"
+                ]
+            ]
+            tests: [
+                [
+                    name: "API Testing",
+                    branch: "master",
+                    url: "http://git.ads.kp.org/bitbucket/scm/evv/evisits-qa-automation.git",
+                    script: "npm run api-evisits-dev"
+                ]
+            ]
+        ],
+        [
+            environment: "DIT",
+            platform: "ucd",
+
+            deployConfig: [
+                url: "http://git.ads.kp.org/bitbucket/scm/evv/evisits-shared-library.git",
+                branch: "demo_branch",
+                tag: [tagInfix: "Config"],
+                pushFile: [
+                    fileType: "Config",
+                    siteName: "",
+                    componentName: "",
+                    tagInfix: "",
+                    tagLabel: "",
+                    baseDir: "",
+                    include: "",
+                    exclude: "",
+                    pushProperties: "",
+                    pushDescription: "",
+                    pushIncremental: ""
+                ]
+            ],
+            pushFile: [
+                fileType: "EAR",
+                siteName: "",
+                componentName: "",
+                version: "",
+                baseDir: "",
+                include: "",
+                exclude: "",
+                pushProperties: "",
+                pushDescription: "",
+                pushIncremental: ""
+            ],
+            regions: ["A","B"],
+            siteName: "",
+
+            application: "",
+            process: "",
+            version: "",
+            multiVersion: true,
+            tagInfix: "",
+            deployOnlyChanged: "",
+
+            tests: [
+                [
+                    name: "API Testing",
+                    branch: "master",
+                    url: "http://git.ads.kp.org/bitbucket/scm/evv/evisits-qa-automation.git",
+                    script: "npm run api-evisits-dev"
+                ]
+            ]
+        ]
+    ]
+)

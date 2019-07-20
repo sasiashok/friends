@@ -1,0 +1,15 @@
+Refer to <a href="https://confluence.ads.kp.org/confluence/display/ADSDevOps/Shared+Libraries#SharedLibraries-Parameters">Shared Libraries</a> for usage.
+
+Sample usage in Jenkinsfile:
+
+@Library ('kp-library') _
+
+ucdFilePush (
+  emailRecipients: "Mohit.Dharamshi@kp.org",
+  tag: [
+    tagInfix: "JDK8_Config"
+  ],
+  componentName: "SG1Listener_Config",
+  baseDir: "Config,lib",
+  include: "**/*"
+)

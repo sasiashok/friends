@@ -1,0 +1,10 @@
+Refer to <a href="https://confluence.ads.kp.org/confluence/display/ADSDevOps/Shared+Libraries#SharedLibraries-Parameters">Shared Libraries</a> for usage.
+
+Sample usage in Jenkinsfile:
+
+@Library ('kp-library') _
+
+apicDeploy (
+  emailRecipients: "mohit.dharamshi@kp.org",
+  componentName: "Clnconnect_Chat"
+)

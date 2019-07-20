@@ -1,0 +1,21 @@
+Sample usage in Jenkinsfile:
+
+@Library ('kp-library') _
+
+configService(
+  emailRecipients: "John.Smith@kp.org",
+  appKeys: "sq,sql,scs",
+  configRepo: "some-configuration",
+  configBranch: "master",
+  configServiceCredentials: "config_service_credential",
+  secureHeaders: ["config_service_access_token"],
+  common_envParams: [
+    org: "CDTS-SOME-SJ001",
+    credentials: "svcsomedeploy"
+  ],
+  envParams: [
+    [ env: "dev", space: "some", org: "CDTS-ADS-SJ001", credentials: "some_cred"],
+    [ env: "qa"],
+    [ env: "uat"]
+  ]
+)

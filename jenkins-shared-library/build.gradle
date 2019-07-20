@@ -1,0 +1,57 @@
+plugins {
+  id "org.sonarqube" version "2.6.2"
+}
+
+sonarqube {
+  properties {
+//    property "sonar.profile", "ADS Library"
+    property "sonar.groovy.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    property "sonar.binaries", "${project.buildDir}/classes"
+    property "sonar.groovy.binaries", "${project.buildDir}/classes"
+//    property "sonar.exclusions", "**/deploy/*.groovy,**/security/*.groovy,**/test/*.groovy,**/vars/*.groovy,**/analytics/*.groovy,**/build/*.groovy, **/utils/ArtifactoryUtils.groovy, **/utils/NotificationUtils.groovy, **/utils/CommonUtils.groovy, **/utils/GitUtils.groovy, **/utils/BuildData.groovy"
+  }
+}
+
+group 'org.kp'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: "jacoco"
+
+repositories {
+  mavenCentral()
+  maven { url "https://repo.jenkins-ci.org/public" }
+}
+
+sourceSets {
+  main.groovy.srcDirs = ['src', 'vars']
+  test.groovy.srcDirs = ['tests']
+}
+
+sourceSets.main.resources {
+  srcDirs "resources"
+  include "templates/sonar-report.html"
+}
+
+dependencies {
+  compile "org.codehaus.groovy:groovy-all:${groovyLangVersion}"
+  compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
+  compile "com.cloudbees:groovy-cps:${groovyCpsVersion}@jar"
+  compile "org.jenkins-ci.main:jenkins-core:${jenkinsCoreVersion}"
+  compile "org.jenkins-ci.plugins.workflow:workflow-job:${workflowJobPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-api:${workflowApiPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-cps:${workflowCpsPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-step-api:${workflowStepApiPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-support:${workflowSupportPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-durable-task-step:${workflowDurableTaskStepPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.workflow:workflow-basic-steps:${workflowBasicStepsPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins.pipeline-stage-view:pipeline-rest-api:${pipelineStageAPIPluginVersion}@jar"
+  compile "org.jenkins-ci.plugins:extended-choice-parameter:${extendedChoicePluginVersion}@jar"
+  compile "org.jenkins-ci.plugins:script-security:${scriptSecurityPluginVersion}@jar"
+
+  testCompile "org.jenkins-ci.plugins:git:${gitPluginVersion}@jar"
+  testCompile "junit:junit:${jUnitVersion}"
+  testCompile "org.spockframework:spock-core:${spockCoreVersion}"
+  testCompile "com.lesfurets:jenkins-pipeline-unit:${pipelineUnitVersion}"
+}
