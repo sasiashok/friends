@@ -1,4 +1,3 @@
-@Library('bitwiseman-shared@blog/declarative/notifications') _ 
 timestamps {
   agent any {
     try {
